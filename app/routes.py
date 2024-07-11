@@ -3,6 +3,7 @@ from .email_clients import initialize_email_client
 from .ml_model import load_ml_model
 from .utils import check_inbox
 import threading
+import imapclient
 
 email_client = None
 ml_model = load_ml_model('models/phishing_detection_model.pkl', 'models/vectorizer.pkl')
@@ -16,11 +17,14 @@ def start_detection():
     password = data['password']
 
     if email and password:
-        email_client = initialize_email_client(email, password)
-        threading.Thread(target=check_inbox, args=(email_client, ml_model, threshold)).start()
-        return jsonify(success=True)
+        try:
+            email_client = initialize_email_client(email, password)
+            threading.Thread(target=check_inbox, args=(email_client, ml_model, threshold)).start()
+            return jsonify(success=True)
+        except imapclient.exceptions.LoginError as e:
+            return jsonify(success=False, error=str(e)), 401
     else:
-        return jsonify(success=False), 400
+        return jsonify(success=False, error="Email and password are required"), 400
 
 @app.route('/scan_content', methods=['POST'])
 def scan_content():
