@@ -31,7 +31,7 @@ def scan_content():
     data = request.json
     content = data['content']
 
-    # Analyze the content using your ML model
+    # Analyze the content using the ML model
     prediction = ml_model.predict([content])
     result = 'phishing' if prediction[0] == 'phishing' else 'not_phishing'
     
