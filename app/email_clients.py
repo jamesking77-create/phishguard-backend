@@ -5,7 +5,7 @@ def initialize_email_client(email, password):
     # Extract the domain from the email address
     domain = email.split('@')[1]
 
-    # Determine the IMAP server based on the domain
+
     imap_servers = {
         'gmail.com': 'imap.gmail.com',
         'outlook.com': 'imap-mail.outlook.com',
