@@ -2,6 +2,7 @@ import time
 from imapclient import IMAPClient
 
 def check_inbox(email_client, ml_model, threshold):
+    
     while True:
         email_client.select_folder('INBOX')
         messages = email_client.search(['UNSEEN'])

@@ -34,4 +34,8 @@ def initialize_email_client(email, password):
         server.login(email, password)
         return server
     except imapclient.exceptions.LoginError as e:
+        
         raise imapclient.exceptions.LoginError(f"Failed to login to {server_address} with email: {email}. Error: {str(e)}")
+    except Exception as e:
+        
+        raise Exception(f"An error occurred while trying to connect to {server_address}: {str(e)}")

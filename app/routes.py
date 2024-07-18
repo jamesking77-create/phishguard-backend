@@ -9,10 +9,15 @@ email_client = None
 ml_model = load_ml_model('models/phishing_detection_model.pkl', 'models/vectorizer.pkl')
 threshold = 3
 
+@app.route('/')
+def home():
+    return "Welcome to the Phishing Guard"
+
 @app.route('/start_detection', methods=['POST'])
 def start_detection():
     global email_client
     data = request.json
+    print("Received data:", data)
     email = data['email']
     password = data['password']
 
