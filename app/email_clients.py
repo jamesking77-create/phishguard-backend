@@ -14,7 +14,7 @@ def initialize_email_client(email, password):
     }
 
     if domain == 'dummyserver.com':
-        # Dummy SMTP server for testing
+       
         class DummyIMAPClient:
             def login(self, email, password):
                 print(f"Logged in with email: {email} and password: {password}")
